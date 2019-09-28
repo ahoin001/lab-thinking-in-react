@@ -4,8 +4,6 @@ import React from 'react';
 // props are passed in so don't need this.props just props
 export default function Table(props) {
 
-
-
     const showOneCategory = (theCategory) => {
 
         return (
@@ -48,12 +46,12 @@ export default function Table(props) {
         });
 
         // For each category in the array
-        return categories.map((eachCategory) => {
+        return categories.map((eachCategory,index) => {
 
             return (
 
                 // Return a div That displays the category name 
-                <div>
+                <div key = {index}>
 
                     <h2> {eachCategory}</h2>
 
