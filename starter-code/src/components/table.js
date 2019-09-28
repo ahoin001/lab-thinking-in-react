@@ -8,7 +8,7 @@ export default function Table(props) {
 
         return (
 
-            // Recieves list from parent component, and sorts it by category
+            // Recieves list from parent component
             // Then returns a div with item name for each item in the list
             props.allItems.filter((eachItem) => {
 
@@ -44,7 +44,6 @@ export default function Table(props) {
 
         const categories = [];
 
-
         props.allItems.forEach((eachItem) => {
 
             // If categories doesn't include the current item category
@@ -53,14 +52,31 @@ export default function Table(props) {
                 // Add the category to the array
                 categories.push(eachItem.category);
 
-
+                console.log(categories)
             }
 
         });
 
-        // For each category in the array
-        return categories.map((eachCategory, index) => {
+   
 
+        // For each category in the array
+        return categories.sort((a,b) => {
+
+            if(a < b)
+            {
+                return -1
+            }
+            else if(a > b)
+            {
+                return 1
+            }
+            else{
+                return 0
+            }
+
+        }).map((eachCategory, index) => {
+
+            console.log(eachCategory)
             return (
 
                 // Return a div That displays the category name 

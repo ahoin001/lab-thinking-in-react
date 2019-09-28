@@ -18,7 +18,7 @@ export default class App extends Component {
 
 
   // Provided a string, will set state to list of items that has that string in it
-  refineItemList = (query) => {
+  refineItemList = (query, showUnstocked) => {
 
     // Copy state of all items
     // Every time this function is called ,the data we filter from is ALL the data
@@ -26,8 +26,15 @@ export default class App extends Component {
     let clone = [...this.state.items]
 
     let newList = clone.filter((eachItem) => {
-      // Only return items that contain strings that user typed in search bar, case insensitive
-      return eachItem.name.toUpperCase().includes(query.toUpperCase());
+
+      if (showUnstocked) {
+        // return items that contain the user input letters , even if unstocked 
+        return eachItem.name.toUpperCase().includes(query.toUpperCase());
+      }
+      else {
+        // Return list of items that are in stock AND Match search query
+        return eachItem.stocked && eachItem.name.toUpperCase().includes(query.toUpperCase());
+      }
 
     })
 
@@ -38,16 +45,17 @@ export default class App extends Component {
 
   }
 
-
   render() {
-    console.log(this.state.items);
+    // console.log(this.state.items);
 
     return (
       <div>
 
 
         <h1> Welcome to IronStore </h1>
-        <Searchbar searchLogic = {this.refineItemList} />
+        <Searchbar
+          searchLogic={this.refineItemList} />
+
         <Table allItems={this.state.visibleItems} />
 
       </div>

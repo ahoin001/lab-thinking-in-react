@@ -6,12 +6,26 @@ export default class Searchbar extends React.Component {
         super(props);
         this.state = {
 
-            searchTerm: ""
+            searchTerm: "",
+            // Show items not in stock
+            showUnstocked: true 
 
         }
 
     }
 
+    toggleStocked = () => {
+
+        this.setState ({
+            // Toggle it to be true or false
+            showUnstocked: !this.state.showUnstocked
+        }, () => {
+            // Once state updates, call function from parent component that 
+            // Returns list matching search , and if we should show out of stock or not 
+            this.props.searchLogic(this.state.searchTerm,this.state.showUnstocked)
+        })
+
+    }
 
     updateInput = (e) => {
         // Updates the state every keystroke to keep track of user input
@@ -22,15 +36,15 @@ export default class Searchbar extends React.Component {
             () => {
 
                 // A function is passed in from Parent component
-                // We give it the searchterm state as an argument
-                this.props.searchLogic(this.state.searchTerm)
+                // We give it the searchterm state as an argument and whether we should show out of stock utems or not
+                this.props.searchLogic(this.state.searchTerm,this.state.showUnstocked)
 
             })
 
     }
 
     render() {
-        console.log(this.state)
+    
         return (
             <div>
 
@@ -45,7 +59,7 @@ export default class Searchbar extends React.Component {
 
                     <div>
                         <label> Only Show In Stock Items </label>
-                        <input type="checkbox" />
+                        <input type="checkbox" onClick={this.toggleStocked}/>
                     </div>
 
 
