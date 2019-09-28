@@ -16,9 +16,22 @@ export default function Table(props) {
 
             }).map((item, index) => {
 
+                // TODO Style Object for conditional styling
+                let styleObject = {}
+
+                // If stocked boolean for given item is false, make its color red
+                if (!item.stocked) {
+                    styleObject.color = 'red'
+                }
+
                 return (
 
-                    <div key={index}> {item.name} </div>
+                    <div key={index} style = {styleObject}>
+
+                        {item.name}
+                        {item.price}
+                    
+                    </div>
 
                 )
             })
@@ -46,12 +59,12 @@ export default function Table(props) {
         });
 
         // For each category in the array
-        return categories.map((eachCategory,index) => {
+        return categories.map((eachCategory, index) => {
 
             return (
 
                 // Return a div That displays the category name 
-                <div key = {index}>
+                <div key={index}>
 
                     <h2> {eachCategory}</h2>
 
