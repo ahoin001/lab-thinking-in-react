@@ -8,17 +8,28 @@ export default function Table(props) {
 
         return (
 
-            // Recieves list from parent component, and returns a div with item name for each item in the list
-            props.allItems.map((item,index) => {
+            // Recieves list from parent component, and sorts it by category
+            // Then returns a div with item name for each item in the list
+            props.allItems.sort((a, b) => {
+
+                if (a.category > b.category) {
+                    return 1
+                } else if (a.category < b.category) {
+                    return -1
+                } else {
+                    return 0
+                }
+
+            }).map((item, index) => {
 
                 return (
-
-                    <div key = {index}> {item.name} </div>
+                    
+                    <div key={index}> {item.name} </div>
 
                 )
-
             })
-        )
+
+            )
 
     }
 
