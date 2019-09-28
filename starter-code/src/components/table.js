@@ -6,7 +6,7 @@ export default function Table(props) {
 
 
 
-    const showItems = (theCategory) => {
+    const showOneCategory = (theCategory) => {
 
         return (
 
@@ -14,20 +14,55 @@ export default function Table(props) {
             // Then returns a div with item name for each item in the list
             props.allItems.filter((eachItem) => {
 
-               return eachItem.category === theCategory;
+                return eachItem.category === theCategory;
 
-            })
-            
-            .map((item, index) => {
+            }).map((item, index) => {
 
                 return (
-                    
+
                     <div key={index}> {item.name} </div>
 
                 )
             })
 
-            )
+        )
+
+    }
+
+    const showItems = () => {
+
+        const categories = [];
+
+
+        props.allItems.forEach((eachItem) => {
+
+            // If categories doesn't include the current item category
+            if (!categories.includes(eachItem.category)) {
+
+                // Add the category to the array
+                categories.push(eachItem.category);
+
+
+            }
+
+        });
+
+        // For each category in the array
+        return categories.map((eachCategory) => {
+
+            return (
+
+                // Return a div That displays the category name 
+                <div>
+
+                    <h2> {eachCategory}</h2>
+
+                    {/* Goes through the Data list and returns a list of items that have the current category */}
+                    {showOneCategory(eachCategory)}
+
+                </div>)
+
+        })
 
     }
 
@@ -35,7 +70,7 @@ export default function Table(props) {
         <div>
 
             <h2>Item Table</h2>
-            {showItems('Electronics')}
+            {showItems()}
 
         </div>
     )
