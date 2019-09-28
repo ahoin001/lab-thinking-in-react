@@ -4,23 +4,21 @@ import React from 'react';
 // props are passed in so don't need this.props just props
 export default function Table(props) {
 
-    const showItems = () => {
+
+
+    const showItems = (theCategory) => {
 
         return (
 
             // Recieves list from parent component, and sorts it by category
             // Then returns a div with item name for each item in the list
-            props.allItems.sort((a, b) => {
+            props.allItems.filter((eachItem) => {
 
-                if (a.category > b.category) {
-                    return 1
-                } else if (a.category < b.category) {
-                    return -1
-                } else {
-                    return 0
-                }
+               return eachItem.category === theCategory;
 
-            }).map((item, index) => {
+            })
+            
+            .map((item, index) => {
 
                 return (
                     
@@ -37,7 +35,7 @@ export default function Table(props) {
         <div>
 
             <h2>Item Table</h2>
-            {showItems()}
+            {showItems('Electronics')}
 
         </div>
     )
